@@ -1,12 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import State from '../components/State';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
-
-root.render(
-  <div>
-  </div>
-);
+export default class Index extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>Hello from Root</h1>
+                <div><State /></div>
+            </div>
+        )
+    }
+}

@@ -9,7 +9,6 @@ class Navbar extends React.Component {
                 <h1 >{this.props.title}</h1>
                 <Btn title="Login" />
                 <Btn title="Register" />
-                <Btn title="Signup" />
             </>
 
         )

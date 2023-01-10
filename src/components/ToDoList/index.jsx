@@ -1,61 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
+import { data } from "../uttils/data";
 import './style.css'
-import { Button } from "../Button";
 
 
-const data = [
-    { id: 1, title: "Somth here" },
-    { id: 2, title: "Somth here" },
-    { id: 3, title: "Somth here" },
-    { id: 4, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-    { id: 5, title: "Somth here" },
-]
 
-class ToDoList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tasks: data
-        }
+const ToDoList = () => {
+    const [state, setState] = useState(data);
+    const [select, selected] = useState('firstname');
+
+    const onDelete = (id) => {
+        const res = state.filter(value => value.id !== id);
+        setState(res);
     }
-    render() {
-        return (
-            <div className="container">
-                <div className="wrapper">
-                    <div className="navbar">
-                        <h1 className="navbar-count">4 Tasks</h1>
-                        <h1 className="navbar-count-remain">4 Remain</h1>
-                    </div>
-                    <div className="tasks">
-                        <ul className="tasks-items">
-                            {
-                                this.state.tasks.map(v => {
-                                    return (
-                                        <li className="tasks-item">
-                                            <label >
-                                                <input type="checkbox" className="checkbox" />
-                                                <h3 className="tasks_title">{v.title}</h3>
-                                            </label>
-                                            <Button>Delete</Button>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                    </div>
-                    <div className="footer">
-                        <input type="text" className="add_input" />
-                        <Button>Add</Button>
-                    </div>
-                </div>
-            </div>
-        )
+
+    const onSearch = (e) => {
+        const search = state.filter(value => value.firstname.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
+        setState(search);
+        console.log(search);
     }
+
+    const onSelect = (e) => {
+        selected({ state: e.target.value });
+    }
+
+    return (
+        <div className="container">
+            <h1>ToDoList</h1>
+
+            <input type="text" className="search" placeholder="Search " onChange={onSearch} />
+            <select onChange={onSelect}>
+                <option value="">Firstname</option>
+                <option>LastName</option>
+                <option>Username</option>
+            </select>
+            <table border={1}>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Tel</th>
+                        <th>Country</th>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>
+                            Update
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {
+                        state.map((v) => {
+                            return (
+                                <tr key={v.id} >
+                                    <td>{v.id}</td>
+                                    <td>{v.firstname}</td>
+                                    <td>{v.lastname}</td>
+                                    <td>{v.username}</td>
+                                    <td>{v.email}</td>
+                                    <td>{v.tel}</td>
+                                    <td>{v.country}</td>
+                                    <td>{v.province}</td>
+                                    <td>{v.district}</td>
+                                    <td ><button>Update</button></td>
+                                    <td><button onClick={() => onDelete(v.id)}>Delete</button></td>
+                                </tr>
+
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+
+        </div >
+    )
 }
 
 export default ToDoList;

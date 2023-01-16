@@ -1,13 +1,13 @@
 import React from 'react';
-// import ToDoList from '../components/ToDoList/index.jsx'
-import UseReducer from '../components/UseReducer';
+import Home from '../components/Home';
+import { Container } from '../components/Home/style';
 
 export default class Index extends React.Component {
     render() {
         return (
-            <div>
-                <div><UseReducer /></div>
-            </div>
+            <Container>
+                <Home />
+            </Container>
         )
     }
 }
